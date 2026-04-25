@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hacker's Veil</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0e0c0a;
+    color: #e8e0d0;
+    font-family: 'EB Garamond', 'Georgia', serif;
+    font-size: 18px;
+    line-height: 1.9;
+  }
+
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    background: radial-gradient(ellipse at center, #1a0505 0%, #0e0c0a 70%);
+    border-bottom: 1px solid #3a1a1a;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff2222' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+
+  .cover-decoration {
+    font-size: 13px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #8b1a1a;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: clamp(48px, 8vw, 92px);
+    font-weight: 700;
+    color: #f5f0e8;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    position: relative;
+    text-shadow: 0 0 60px rgba(180, 40, 40, 0.3);
+  }
+
+  .cover-title span {
+    color: #c0392b;
+  }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-style: italic;
+    font-size: clamp(16px, 3vw, 22px);
+    color: #9a8a7a;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+    position: relative;
+  }
+
+  .cover-divider {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #8b1a1a, transparent);
+    margin: 0 auto 50px;
+    position: relative;
+  }
+
+  .cover-epigraph {
+    max-width: 480px;
+    font-style: italic;
+    color: #7a6a5a;
+    font-size: 16px;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .book-body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .part-break {
+    text-align: center;
+    padding: 100px 0 60px;
+    position: relative;
+  }
+
+  .part-number {
+    font-size: 11px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: #8b1a1a;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .part-title {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    color: #f5f0e8;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .part-subtitle {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-style: italic;
+    color: #6a5a4a;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .part-rule {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #8b1a1a, transparent);
+    margin: 0 auto;
+  }
+
+  .chapter {
+    padding: 80px 0 40px;
+  }
+
+  .chapter-number {
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #8b1a1a;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 700;
+    color: #f0e8d8;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .chapter-epigraph {
+    font-style: italic;
+    color: #6a5a4a;
+    font-size: 15px;
+    margin-bottom: 40px;
+    padding-left: 20px;
+    border-left: 2px solid #3a1a1a;
+    line-height: 1.6;
+  }
+
+  .chapter-rule {
+    width: 60px;
+    height: 1px;
+    background: #3a1a1a;
+    margin-bottom: 40px;
+  }
+
+  p {
+    margin-bottom: 22px;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  p.first-paragraph::first-letter {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 5em;
+    float: left;
+    line-height: 0.75;
+    margin: 8px 12px 0 0;
+    color: #c0392b;
+    font-weight: 700;
+  }
+
+  .pull-quote {
+    margin: 45px 0;
+    padding: 30px 40px;
+    border-left: 3px solid #8b1a1a;
+    background: rgba(139, 26, 26, 0.06);
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-style: italic;
+    font-size: clamp(17px, 2.5vw, 21px);
+    color: #d4c4b0;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '\201C';
+    font-size: 80px;
+    color: #8b1a1a;
+    opacity: 0.3;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    line-height: 1;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .section-break {
+    text-align: center;
+    margin: 50px 0;
+    color: #4a3a2a;
+    letter-spacing: 12px;
+    font-size: 14px;
+  }
+
+  .flashback {
+    margin: 40px 0;
+    padding: 28px 35px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid #2a1a1a;
+    border-radius: 2px;
+    font-style: italic;
+    color: #c8b8a0;
+    position: relative;
+  }
+
+  .flashback::before {
+    content: 'Memory';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: #0e0c0a;
+    padding: 0 10px;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #8b1a1a;
+    font-style: normal;
+  }
+
+  .text-message {
+    margin: 30px auto;
+    max-width: 360px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid #2a2a2a;
+    border-radius: 18px;
+    padding: 16px 22px;
+    text-align: center;
+    font-size: 15px;
+    color: #a0c0a0;
+    font-style: italic;
+  }
+
+  .blood-text {
+    color: #c0392b;
+    font-weight: 500;
+  }
+
+  .carved {
+    display: block;
+    text-align: center;
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    color: #c0392b;
+    letter-spacing: 4px;
+    margin: 50px 0;
+    font-weight: 700;
+    text-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
+  }
+
+  .chapter-end-rule {
+    width: 40px;
+    height: 1px;
+    background: #3a1a1a;
+    margin: 60px auto 0;
+  }
+
+  .epilogue {
+    padding: 80px 0 120px;
+    text-align: center;
+  }
+
+  .epilogue-title {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 28px;
+    color: #9a8a7a;
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+
+  .final-line {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-style: italic;
+    color: #6a5a4a;
+    font-size: 16px;
+    margin-top: 60px;
+  }
+
+  @media (max-width: 600px) {
+    .book-body { padding: 0 24px; }
+    .pull-quote { padding: 20px 24px; }
+    .flashback { padding: 20px 22px; }
+  }
+
+  @media print {
+    body { background: white; color: #1a1a1a; font-size: 12pt; }
+    .cover { background: white; min-height: auto; padding: 60px 40px; }
+    .cover-title { color: #1a1a1a; text-shadow: none; }
+    .cover-subtitle { color: #555; }
+    .chapter-number, .part-number, .cover-decoration { color: #8b1a1a; }
+    .pull-quote { background: #fafafa; border-left-color: #8b1a1a; color: #333; }
+    .flashback { background: #fafafa; color: #444; }
+    .blood-text { color: #8b1a1a; }
+    .carved { color: #8b1a1a; text-shadow: none; }
+    p.first-paragraph::first-letter { color: #8b1a1a; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-decoration">A Novel</div>
+  <div class="cover-title">The Hacker's<br><span>Veil</span></div>
+  <div class="cover-subtitle">Love, Rage &amp; Hidden Power</div>
+  <div class="cover-divider"></div>
+  <div class="cover-epigraph">
+    "Every love story is a ghost story —<br>
+    and the most dangerous ghosts<br>
+    are the ones that teach you how to burn."
+  </div>
+</div>
+
+<!-- BOOK BODY -->
+<div class="book-body">
+
+<!-- PART ONE -->
+<div class="part-break">
+  <span class="part-number">Part One</span>
+  <span class="part-title">Before the World Broke</span>
+  <span class="part-subtitle">The ones we love become our whole vocabulary.</span>
+  <div class="part-rule"></div>
+</div>
+
+<!-- CHAPTER 1 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter One</span>
+  <span class="chapter-title">The Only Real Thing in the World</span>
+  <div class="chapter-epigraph">
+    "The most dangerous thing a man can do is love someone so completely<br>
+    that without them, he no longer recognises himself in the mirror."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">He had lived inside machines his whole life. Not the steel-and-oil kind — the invisible kind, the ones humming quietly beneath the skin of the modern world: servers, networks, firewalls, encrypted channels. Dominic Voss had understood code before he could fully understand people, had mastered the language of ones and zeros long before he could master the language of his own heart. By twenty-two, he was already a ghost in the machine — unseen, untraceable, brilliant in the way that a scalpel is brilliant: cold, sharp, designed to cut deep. The people who hired him never knew his face. They only knew his handle: <em>Erebus</em>. Named, fittingly, after the ancient god of darkness.</p>
+
+  <p>By day he moved through the city like everyone else — coffee, crowds, the indifferent hum of a Tuesday. He wore plain clothes and kept his eyes down and gave nothing away. Nobody looked twice at Dom. That was exactly how he wanted it.</p>
+
+  <p>But night was his. Night was when Erebus woke up.</p>
+
+  <p>His apartment was a cathedral of screens. Four monitors arranged in a semicircle above a battlestation of a desk — keyboards, drives, a tangle of black cables he knew by memory, the way a pianist knows the exact weight of every key. The amber glow of the monitors was the only light he needed. He had once gone four days without opening the curtains and hadn't noticed. The digital world asked nothing of him except precision. It didn't want him to feel. It didn't want him to be warm. And for a long time, Dom had believed that was enough.</p>
+
+  <p>Then came the rain. Then came the Tuesday that cracked his whole architecture in half.</p>
+
+  <p>He had chosen the café — Caruso's, a narrow, dimly-lit place that smelled of old wood and cardamom — because the wifi was untapped and the corner table had a clean sightline to both exits. He had been running surveillance data on a particularly filthy government contractor, three screens mirrored onto his laptop, his coffee growing cold beside him. He was not the kind of man who let his coffee grow cold. He was not the kind of man who let anything distract him.</p>
+
+  <p>He heard her before he saw her. Laughter — bright and uncontained, like something that had been bottled and finally let loose. Then a sudden collision of bodies and table, and his coffee was a warm brown ocean spreading across his keyboard and his lap and every instinct he had screamed the wrong thing entirely, because instead of moving to save the hardware, he looked up.</p>
+
+  <p>She had both hands clapped over her mouth. Her eyes — dark and enormous, full of a terrible suppressed hilarity — were already apologising even as the rest of her face was clearly deciding whether to burst out laughing. She had an orange scarf looped around her neck, raindrops still glittering in her hair like she'd run through a storm and not minded at all. She was nineteen years old, and she was the most alive thing Dominic Voss had ever seen in his life.</p>
+
+  <p>"Oh no," she said. Then she lowered her hands. The laughter won. "I'm so sorry — your laptop — oh no —"</p>
+
+  <p>"It's fine." He hadn't meant to say it like that. Gently. The word had simply come out gentle, as if his body had made a decision his brain had not been consulted on.</p>
+
+  <p>She grabbed a fistful of napkins from the dispenser and pressed them to the table, blotting furiously, still laughing, and it was the most chaotic, unself-conscious thing he'd watched a person do in years. Everyone else in the café was staring. She didn't notice, or she didn't care — either way it was extraordinary.</p>
+
+  <p>"I'm Mari," she said, still blotting. "Short for Mariela. I bump into things a lot, you should know this upfront, it's basically a personality trait at this point."</p>
+
+  <p>"Dom."</p>
+
+  <p>She looked up then — properly looked at him — and something in her expression shifted. The laughter settled into something softer. "You look like you haven't smiled in a long time," she said. Not cruelly. Just honestly. "That's a shame. You've got a good face for smiling."</p>
+
+  <p>He did not know what to say to that. He had spent years learning to say exactly the right thing in exactly the right sequence to crack open a firewall, to talk his way into a private channel, to execute a flawless social engineering attack on a Fortune 500 company. But a nineteen-year-old girl with rain in her hair and coffee on her hands had just made him completely speechless.</p>
+
+  <p>She looked at his ruined screen, then at his face, and her grin returned — irrepressible, unstoppable, like the tide. "Looks like I just hacked your drink, stranger."</p>
+
+  <p>Dom Voss looked at her across the wreckage of his coffee and forgot — just for a second, just one terrifying, luminous second — how to breathe.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>He walked her home that evening under a single umbrella, the rain coming down in silver sheets. She talked the entire way. She talked about her sister's terrible taste in men and the novel she was reading and how she believed that cities had personalities and that this city — their city — was fundamentally a melancholic city, "but the good kind of melancholy, you know? The kind that makes jazz make sense." She asked him what he did. He said he worked in data. She accepted this completely, asked no follow-up questions, and moved on to a story about a street cat she'd been feeding for six months that had just shown up one morning with kittens.</p>
+
+  <p>He said almost nothing the entire walk. But when they reached her door — a blue-painted door on a narrow street where the streetlamp threw amber circles on the wet pavement — she turned to him and said, "You know what you are, Dom? You're one of those people who listens like they mean it. That's rarer than you think."</p>
+
+  <p>He thought about that for three days.</p>
+
+  <p>He thought about it while running surveillance traces at two in the morning. He thought about it while he cracked a firewall protecting the private servers of a ministry he had no love for. He thought about her laughter, the orange scarf, the way she had said his name like it was already familiar.</p>
+
+  <p>On the third day he went back to Caruso's.</p>
+
+  <p>She was already there.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>Their first real date — because that afternoon at Caruso's was the second one, though neither of them said so — was a Friday evening when the air tasted of coming autumn. Mari had told him, quite seriously, over two cups of coffee, that she had a place she needed to take him. "Non-negotiable," she said. "Don't ask questions. Just wear something that doesn't need to stay clean."</p>
+
+  <p>She took him to the Varga Amusement Park — a place that should have been dead twenty years ago, that by rights should have been rubble and redevelopment, but which somehow still turned its lights on every evening with the stubborn vitality of something that refuses to be finished. The rides were old. The paint was peeling on the carousel horses. The whole park had the slightly threadbare glamour of a ballgown worn too many times, and Dom thought it was one of the most beautiful places he'd ever seen.</p>
+
+  <p>They rode the Ferris wheel at midnight.</p>
+
+  <p>At the top, with the city spread below them like a circuit board — all lit squares and dark channels and the bright arterial lines of the main roads — the wheel stopped. Maintenance, or fate. It didn't matter. They hung there above the world in a swaying gondola while the wind moved Mari's hair across her face and the city hummed its insomnia below them.</p>
+
+  <p>She turned to look at him. Not the laughing girl from the café now — something quieter, more serious, more real. A face he hadn't seen yet and already couldn't imagine not knowing.</p>
+
+  <p>"You know what I love about you, Dom?" she said. Her voice was low, almost lost under the wind. "You see the whole world as ones and zeros. As a system to be understood. To be cracked open." She paused. "But when you look at me — I can tell. When you look at me, you don't see a system. You see something you can't calculate. And I think that scares you." A small smile. "And I think that's the only code I ever want to live inside."</p>
+
+  <p>He kissed her then — and it was the first honest thing he had done in years. Soft at first, tentative, the way you approach something fragile and astonishing. Then something in him stopped calculating and just fell, and the kiss deepened, and the gondola swayed, and the city below them blazed on, indifferent and eternal, and for the first time in as long as Dom could remember, the world outside his skull ceased to exist entirely.</p>
+
+  <div class="pull-quote">
+    "He had cracked governments. He had walked invisible through the most fortified systems in the country. But she was the first thing in his life that he hadn't tried to understand — and the first thing he hadn't needed to."
+  </div>
+
+  <p>What followed was fourteen months that Dominic Voss would spend the rest of his life returning to, pressing his fingers into like a bruise that proves something once existed.</p>
+
+  <p>They built a world. It had the dimensions of two apartments and a handful of favourite streets and that small round table at Caruso's and the park in October and the balcony above the city, and it was the most real geography Dom had ever inhabited.</p>
+
+  <p>She learned his hours — the strange inverted schedule of a man who worked when the city slept — and rather than fight it she adapted, showing up at eleven at night with food she'd cooked, sliding in beside him at his desk with her legs tucked beneath her, reading while he worked, the warmth of her a constant quiet miracle at his elbow. He would look up sometimes and just watch her — head bent over a book, lower lip tucked between her teeth, completely absorbed — and feel something in his chest that he had no technical vocabulary for.</p>
+
+  <div class="flashback">
+    <p>It was a Tuesday afternoon in November — he remembered because November Tuesdays had been the particular shade of grey that made the apartment feel like the only warm place in the world. He was showing her how a vending machine in the university corridor had a firmware vulnerability so basic it was almost charming. The hallway was empty, fluorescent lights buzzing overhead, and she leaned into him as he talked her through the keystrokes, her chin almost on his shoulder, her breath warm against his neck.</p>
+    <p>"Type this," he murmured. "Exactly this."</p>
+    <p>She typed. She got it wrong twice, cursed, giggled, tried again. On the third attempt the machine gave a mechanical shudder of compliance and dropped two chocolate bars. Mari let out a shriek of pure delight that echoed off every surface in the corridor, and before he could react she had spun around and thrown her arms around his neck and kissed him — fierce and joyful and tasting of the coffee she'd had that morning — and they nearly fell into the machine together.</p>
+    <p>"We are <em>unstoppable</em>," she announced breathlessly against his mouth. "A criminal empire. Starting with chocolate bars and moving up."</p>
+    <p>"You typed it wrong twice."</p>
+    <p>"Details." She kissed him again. "Details."</p>
+  </div>
+
+  <p>They fought, of course. The way people fight when they're close enough to hurt each other and brave enough to try. There was the night she wanted the stupid romantic film and he had a job deadline and she stole his laptop with all the dignity of someone executing a heist, tucked it under the bed, and sat on the edge of the mattress with her arms folded and an expression of absolute conviction.</p>
+
+  <p>"The job will still be there," she said. "The deadline can move. But I am here, right now, in this present moment, and I choose to spend it watching people fall in love over a series of elaborate misunderstandings. You are coming with me."</p>
+
+  <p>"Mari—"</p>
+
+  <p>"Dom."</p>
+
+  <p>The thing was, she was right. Not just about the film — about the larger principle she was always gently, persistently trying to teach him: that the present moment is the only one we actually own. He always knew it intellectually. She made him feel it in his bones.</p>
+
+  <p>They ended up on the living room floor, the film forgotten, laughing at something she'd said about the terrible CGI in the opening credits, her head on his chest, his arm around her, the room warm and full of the particular happiness that has no name but that every person who has ever been truly loved knows on sight.</p>
+
+  <p>"Love isn't a program, Dom," she said later, soft and sleepy, tracing the line of his jaw with one finger in the dark. "You know that, right? You can't debug it. You can't back it up. You can't encrypt it against loss." A pause. "But it's also the only thing in the world that hackers can't delete. Even if they try. Even if they have to."</p>
+
+  <p>He held her tighter. He didn't answer. He had no words adequate to that particular truth.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>Their best hours were the late ones. After midnight, when the city had finally quieted to a murmur, they would take blankets out to the narrow balcony — barely wide enough for two people and a bottle of wine — and lie together while the lights of the city below them pulsed like something breathing. She would talk about her dreams. She wanted to travel — not tourist travel, real travel, the kind where you stay long enough in a place to understand what the light looks like there at different hours, to learn which bakery the locals actually went to, to sit in parks and simply be part of a place. Portugal, she said. Japan. The mountains of Georgia. "I want to see it all," she said once. "Every inch. And I want you there beside me for every inch of it."</p>
+
+  <p>And Dom, who had been nowhere — who had seen the entire planet through the cold glass of other people's surveillance systems, who had walked through foreign cities in satellite footage and drone feeds but never felt foreign rain — Dom lay in the dark with this girl against his chest and felt the specific ache of someone who has just been given a reason to want a future.</p>
+
+  <p>He told her things he had told no one. About the jobs. About the clients — government contractors, oligarchs, shadowy corporations with names that meant nothing and purposes that meant everything terrible. He told her about the firewalls he'd cracked and the data he'd found and what some of it had cost him in sleep. She listened to all of it — listened with the careful, complete attention she gave everything — and she never flinched and she never judged him and she held him a little tighter.</p>
+
+  <p>"You're not a bad person doing bad things," she said once. "You're a good person trapped in a system that makes bad things the only available option. There's a difference. And someday you'll figure out how to change the system instead of just moving through it."</p>
+
+  <p>He thought about that for weeks. He still thought about it.</p>
+
+  <p>Some nights their love was slow and reverent — quiet and unhurried, the way you move when you're trying to memorise something by touch. Other nights it was urgent and fierce, torn loose from somewhere deep in both of them, as if they both knew, somewhere beneath the joy of it all, that happiness like this has a price, and the invoice always arrives.</p>
+
+  <p>But he pushed that thought away. He was good at pushing things away.</p>
+
+  <p>He was good at a lot of things that would eventually fail to save him.</p>
+
+  <div class="pull-quote">
+    "For the first time in twenty-two years of living inside machines, Dominic Voss felt warm. Not the warmth of proximity or habit — but the deep, cellular warmth of being known. Completely, dangerously, irreversibly known."
+  </div>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- CHAPTER 2 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Two</span>
+  <span class="chapter-title">The Vanishing</span>
+  <div class="chapter-epigraph">
+    "Grief begins not in the grave but in the last ordinary moment —<br>
+    the moment just before the world changes its mind about you."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">It was an ordinary Thursday. That detail would haunt him more than anything else — the sheer, casual ordinariness of it. Not a night with a red sky or a stillness in the air that might have served as warning. Just a Thursday in March, the city going about its grey and unremarkable business, pigeons on the railings and a woman selling flowers on the corner and the smell of rain that hadn't arrived yet.</p>
+
+  <p>Dom had been at his desk since noon, deep in a commission — tracing dark money through seventeen shell companies across four continents. He was in that particular tunnel-state of focus where hours passed like minutes, where the world outside the screens ceased to matter, where he was pure intent and no body at all.</p>
+
+  <p>At 7:42 p.m. his phone lit up on the desk beside the keyboard. He saw her name and felt the small, reliable warmth that her name always produced in him. He glanced at the message without breaking his rhythm.</p>
+
+  <div class="text-message">
+    On my way home, love you more than Wi-Fi and chocolate combined ❤️<br>
+    Don't forget to eat something real, hacker boy.
+  </div>
+
+  <p>He smiled at the screen — the quick, private smile she reliably produced in him, the one that felt like a different person's smile, softer than anything else he ever wore — and went back to work.</p>
+
+  <p>At nine o'clock he realised she wasn't there.</p>
+
+  <p>At nine-fifteen he told himself she had probably stopped somewhere. A friend. A shop. The bookstore on Vidal Street that she could never walk past without going in.</p>
+
+  <p>At nine forty-five he called. It rang out. He called again. He texted. Three grey ticks. Delivered. Not read.</p>
+
+  <p>By ten o'clock his hands were already moving toward the keyboard with a different purpose.</p>
+
+  <p>He told himself it was nothing. He told himself this with the focused, deliberate quality of a man who already knows that it is something, who is simply buying himself a few more minutes inside the last ordinary moment before the world changes its mind about him forever.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>He did not sleep that night. He did not sleep the night after. He became, in the space of seventy-two hours, something he barely recognised — a man assembled entirely from panic and precision, all the warmth of the past fourteen months driven underground by the cold terrible engine of fear.</p>
+
+  <p>He hacked city surveillance with a savagery he'd never brought to a personal task before. Traffic cameras, transit logs, ATM feeds, the grainy footage from the convenience stores and pharmacies and parking garages of every street between Caruso's café and her apartment. He tracked her route like a man following blood through snow. He found her on six cameras in the first eight blocks. Walking fast, earphones in, shoulders slightly hunched against the cold. The orange scarf around her neck.</p>
+
+  <p>After the seventh camera, she was gone.</p>
+
+  <p>Not obscured. Not around a corner. Not stepped into a shop. Just — absent. As if the world had simply closed around her like water.</p>
+
+  <p>He traced her phone to its last signal. The industrial zone on the south side of the river — a neighbourhood of warehouses and empty loading bays and the kind of darkness that doesn't come from absence of light but from absence of eyes. The ping was brief. Then nothing. As if the signal had not been lost but surgically removed.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>Those three days had a particular texture that would never leave him. The apartment — their apartment, the one that held every evidence of her — became a kind of torture chamber made of love. Her red scarf hung on the back of the chair and he couldn't bring himself to move it. Her half-eaten bag of strawberry candies sat on the kitchen counter and he caught himself standing in front of it at three in the morning, just looking at it, trying to process the idea that she had been alive and reaching into that bag not four days ago.</p>
+
+  <p>Her perfume was still on his pillow. This was perhaps the worst thing. He would lie on the bed — not to sleep, sleep was impossible, but to be horizontal for a while, to give his body the rest his mind refused — and the smell of her would be there, the specific combination of jasmine and something warm and organic that was simply her, and his throat would close completely and a sound would come out of him that he didn't know he was capable of making.</p>
+
+  <div class="flashback">
+    <p>He kept returning to a Sunday morning three months ago. She had been asleep when he woke up — deeply, contentedly asleep, her hair across his shoulder, her breathing slow and even. He had lain very still, not wanting to wake her, watching the early light change on the ceiling. He had thought: <em>this is it</em>. Not in a grand way — quietly. Simply. <em>This is the thing I was missing without knowing I was missing it. This specific warmth. This specific breath. This specific person.</em></p>
+    <p>He had not told her that. He wished, with a fury that had no exit, that he had told her that.</p>
+  </div>
+
+  <p>He played her voice messages on loop — there were eleven of them saved, ranging from practical instructions about buying milk to a two-minute recording of her reading him a poem she'd found that she thought he'd like, her voice warm and slightly self-conscious, pausing before certain lines to say "wait, this part, listen." He played them until the tenth time, when something in him broke open completely and he threw the phone across the room with a scream that tore his throat raw.</p>
+
+  <p>He picked the phone up. He played them again.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>On the fourth night — 2:17 a.m., his eyes burning, three days of stubble and two of showering — a message appeared on his primary monitor. Not an email. Not a chat notification. It was simply there, in plain text, as if someone had walked into his digital space without knocking and written on his wall.</p>
+
+  <p><em>Warehouse district. Dock 17. Black van. No plates.</em></p>
+
+  <p>He stared at it for four seconds. He checked every trace he knew — sender, routing, infiltration method. Nothing. Whoever had sent it had done so from somewhere that simply did not exist in any accessible record. A ghost message, from a ghost sender, pointing toward the place where his ghost girl had vanished.</p>
+
+  <p>The text deleted itself. Cleanly. As if it had never been.</p>
+
+  <p>Dom was already reaching for his jacket.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>Dock 17 smelled of salt water and rust and something metallic he didn't want to name. The van was gone. But it had been there — he could read the scene the way a programmer reads a crash log, all the residual data of something catastrophic. Tyre marks — deep, from a heavy vehicle that had stopped fast. Broken glass, safety glass, the kind from a car window struck from outside. And then, caught on the edge of a rusted bolt like a red flag on a battlefield:</p>
+
+  <p>A torn piece of orange fabric.</p>
+
+  <p>Her scarf.</p>
+
+  <p>Stained dark at the edges. Dried, already.</p>
+
+  <p>Dom knelt on the cold concrete and held the fabric in both hands and did not think anything at all for a very long time. The pain was beyond thought — below thought, in some older part of him that predated language. It was the pain of something being ripped out by the root. He pressed the fabric against his mouth and made a sound that had no name in any language, a sound that was grief in its most animal form, and the empty dock absorbed it, and the water moved darkly below the pier, and the city offered no comfort at all.</p>
+
+  <p>He did not know — could not have known — that seventy metres away, in a black car with tinted windows, a seventy-one-year-old man in a crisp dark suit sat watching him through a monitor feed, his face very still, his jaw very tight, and said nothing at all. Just watched his grandson come apart at the seams and noted, quietly, that it was time to begin.</p>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- CHAPTER 3 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Three</span>
+  <span class="chapter-title">The Silent Guardian</span>
+  <div class="chapter-epigraph">
+    "A father's love is patient. A grandfather's love is merciless —<br>
+    it will burn down whatever needs burning to protect what matters."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">Zir Voss was, to those who dealt with him professionally, an exceptionally unremarkable man. This was not an accident. He had constructed unremarkability with the same meticulous care that other men constructed power — because he had long understood that in the real world, the two things are not opposites but synonyms. The most powerful things in the world are invisible. Gravity. Radiation. Money. The systems that actually govern.</p>
+
+  <p>He was seventy-one years old. He had silver hair, cut short, and the kind of posture that certain classes of military man develop: perfectly erect, not from vanity but from the muscle memory of decades. His hands were large and still bore the thickened knuckles of a man who had, in his youth, resolved problems with those hands. His eyes were grey and very calm — the eyes of someone who has looked at terrible things for so long that nothing surprises them anymore.</p>
+
+  <p>His suits were always black. He wore no jewellery. He spoke quietly and made you lean forward to hear him, which meant he was always the person the room was leaning toward.</p>
+
+  <p>To the outside world — to tax records and company registrations and the handful of journalists who had tried, briefly and ill-advisedly, to investigate him — Zir Voss was a shipping magnate. Comfortable. Legitimate. The kind of successful man whose success is so complete it becomes boring, and boredom is the best camouflage in the world.</p>
+
+  <p>What he actually was, was the seventh leader of Silido.</p>
+
+  <div class="pull-quote">
+    "Silido was not a criminal organisation — not in the way people imagine criminal organisations, with their chaos and their petty violence and their need for external validation. Silido was, in the oldest sense, a state. It simply chose not to be visible."
+  </div>
+
+  <p>They had been operating for sixty years. In that time they had made and unmade three governments, orchestrated the removal of two presidents without a single body being traceable to them, and quietly buried the careers — and occasionally the breathing — of every official who had threatened to expose what the country's real machinery looked like under its democratic hood. They were not motivated by ideology. They were motivated by order — specifically, their order, the order they had decided was preferable to any alternative.</p>
+
+  <p>They had a code. It was unwritten, unarguable, and absolute. <em>Blood is blood. Whatever the cost. Whatever the method. You do not let family fall.</em></p>
+
+  <p>Zir had known about Mari's abduction within hours of it happening. He had known because he had men in enough places that almost nothing happened in this city without a ripple reaching him. He had known the name of the man behind it — Hades, which was a pseudonym that told you everything you needed to know about a person's self-image — and he had known the destination, and he had known what that destination meant for the girl who was taken there.</p>
+
+  <p>He could have ended it in forty-eight hours. He had people who could have walked onto that island before Mari had been there three days and brought her back. He had the capability. He had the men.</p>
+
+  <p>But he had also watched his grandson for twenty-two years. He knew Dom's particular brand of integrity — the stubborn, self-destructive refusal to acknowledge the family he came from, the carefully maintained fiction that he was, in all the ways that mattered, self-made, clean-handed, alone. Dom knew, in the abstract, what his grandfather was. He had chosen not to look at it. Zir had, for years, respected that choice.</p>
+
+  <p>He had decided, watching Dom fall apart at Dock 17, that respect had its limits.</p>
+
+  <p>He would not simply extract the girl and hand her back, eliminating Dom's agency in his own story. That was not what Dom needed. What Dom needed was to become the person capable of handling the truth of what the world was — the person capable, eventually, of inheriting the responsibility Zir had been carrying alone for thirty years. The crisis was cruel. The crisis was also, Zir had concluded with the pragmatism of a man who had seen a great deal of terrible things, an opportunity.</p>
+
+  <p>He would give his grandson breadcrumbs. He would clear the path. He would, when the time came, provide the army.</p>
+
+  <p>And Dom would become what he was always meant to become.</p>
+
+  <p>In his control room — a clean, climate-controlled space beneath his private estate that contained more processing power than most national intelligence services — Zir assembled his inner circle. Twelve men and two women who had served him with absolute loyalty for a combined total of over two hundred years. He looked at their faces across the long dark table and said what needed to be said.</p>
+
+  <p>"My grandson's girl has been taken by Hades." He paused. Not for effect. For precision. "Dom will hunt him. We will not let him hunt alone — but he will not know we are there. We clear the path. We eliminate the obstacles he cannot see. We feed him what he needs to find the right doors." He let the silence settle. "And when the moment comes that he cannot win alone, we arrive."</p>
+
+  <p>No one questioned this. No one ever questioned Zir's directives — not because they were afraid to, but because in sixty years of making decisions, he had not yet been wrong in any way that could not be corrected.</p>
+
+  <p>"Blood is blood," said the man at his right hand — Tobias, sixty, scarred, loyal as stone.</p>
+
+  <p>"Blood is blood," the room answered.</p>
+
+  <p>Zir looked one last time at the monitor showing Dom kneeling at the edge of Dock 17, still holding the piece of red scarf, and said nothing. But his jaw moved once, tightly, and anyone who had known him long enough would have recognised, in that smallest of movements, the only form of grief Zir Voss permitted himself.</p>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- PART TWO -->
+<div class="part-break">
+  <span class="part-number">Part Two</span>
+  <span class="part-title">The Descent</span>
+  <span class="part-subtitle">What love becomes when it has nowhere left to go.</span>
+  <div class="part-rule"></div>
+</div>
+
+<!-- CHAPTER 4 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Four</span>
+  <span class="chapter-title">Descent into Hell</span>
+  <div class="chapter-epigraph">
+    "Rage, unchecked, is madness. But rage with a target —<br>
+    rage with a name carved into every bullet —<br>
+    that is something else entirely. That is purpose."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">He became a different person in the weeks that followed. It was not a dramatic transformation — not a sudden shedding of self, not a single night where he looked in the mirror and decided to become someone else. It was more like watching steel cool. The man who had loved Mari Delgado with his whole bruised heart was still in there — he could feel him, the way you feel a limb that is asleep, all pins and needles and useless pressure. But on top of that man, something harder was forming. Something without edges that could be exploited. Something without warmth that could be leveraged.</p>
+
+  <p>Dom Voss was building himself into a weapon. He did not do this consciously. He did it the way the body builds scar tissue — automatically, urgently, because the alternative was to remain an open wound, and an open wound cannot hunt.</p>
+
+  <p>He trained every morning before dawn. He had always been physically capable — the wiry, controlled strength of someone who manages stress through movement — but now he trained with a focused brutality that alarmed the men at the boxing gym who trained alongside him. He went past endurance into something else, something that looked from the outside like punishment. He came home with split knuckles and bruised ribs and didn't notice either. His body was simply the delivery system for the thing he was becoming.</p>
+
+  <p>At night he hacked.</p>
+
+  <p>Not the careful, methodical work of a professional — not the elegant intrusions he had spent years perfecting, built on patience and misdirection and surgical precision. This was something rawer. He tore through firewalls like they offended him personally. He went places no single operator had gone before, pulling data from government servers and ministry private channels and the dark corners of infrastructure that was never meant to be accessed by anyone with a conscience. He worked eighteen hours at a stretch, sustaining himself on bad coffee and the burning, constant pressure of finding the next door, the next name, the next breadcrumb that would tell him where she was.</p>
+
+  <p>The anonymous messages continued. Every few days — always different routing, always untraceable, always arriving with surgical timing when he had hit a wall. A set of coordinates. A decrypted file. A name, sometimes, with a brief accompanying data package that told him exactly who that name belonged to and why it mattered. He should have found this more alarming. He didn't have the bandwidth for alarming. He had only the bandwidth for forward.</p>
+
+  <p>He followed the chain for weeks. Each link led to the next. Officials who had flown in private planes to coordinates in international waters. Financial transfers between government accounts and shell companies registered in jurisdictions that made things invisible. The same private island appearing again and again — listed on official records as Eden Holdings Ltd., a private resort. No reviews online. No public footprint. Just money flowing in, and silence flowing back out.</p>
+
+  <div class="pull-quote">
+    "Every name he found, he carved into a private file he kept encrypted on a drive that never touched the internet. Not a list of targets — he told himself it was not a list of targets. It was a record of the truth. The truth that would demand to be answered."
+  </div>
+
+  <div class="flashback">
+    <p>He would think of her, sometimes, in the middle of a night hack — involuntarily, the memory arriving like an uninvited hand on his shoulder. Her voice. The specific quality of her laugh — the way it always built, starting slow, then accelerating, then completely surrendering to itself. He would be mid-keystroke, data streaming across his screens, and suddenly he would be back on the balcony, her head on his chest, the city lights below them like a code he didn't need to crack.</p>
+    <p><em>"Promise me something,"</em> she had said once, her voice half-asleep and serious at the same time.</p>
+    <p><em>"Anything."</em></p>
+    <p><em>"Promise me that no matter what happens — no matter how bad things get — you'll remember that you were loved. Completely. That someone sat here with you in the dark and thought you were the most extraordinary thing she'd ever been confused by. Promise me you'll keep that."</em></p>
+    <p>He had promised. He kept the promise in the only way he had left — as fuel.</p>
+  </div>
+
+  <p>He found the island on a Thursday. Exactly three weeks after she had vanished, to the day. He almost missed it — it was referenced in a chain of encoded coordinates buried in a deleted file on the private server of a minister whose corruption he had been documenting as a secondary target, and it had the particular quality of data that has been hidden by someone who knows exactly what they're hiding. It was there and not there, like a reflection in water — you had to look slightly to the side to see it clearly.</p>
+
+  <p>Eden. The name made his stomach turn with a specific physical violence.</p>
+
+  <p>He planned the insertion for five days. Every camera position. Every guard rotation. Every frequency the security system used. He built a model of the island in wire-frame on his primary screen and walked through it until he knew it in the dark, until his hands moved through the digital space of it like a space he had lived in.</p>
+
+  <p>On a Wednesday at 2 a.m. he took a boat.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>The island at night was a particular kind of beautiful — the kind that makes you angry. Tropical, lush, the water around it lit phosphorescent where small waves broke against the rocks. From a distance it looked exactly like what it claimed to be: a paradise. This, Dom thought, grimly, with his jaw set hard, was perhaps the most honest thing about it. Paradise was always, when you got close enough, a cage with a better view.</p>
+
+  <p>He cut the security system from a junction point on the east side — thirty seconds of careful work, steady hands, the training and the rage kept carefully separate from each other in his mind. Then he moved.</p>
+
+  <p>Through the tree line. Past the first building — administrative, lights off. Past the second — he heard sounds from inside it that he would carry in his body for the rest of his life, muffled sounds, human sounds that had had the humanity beaten out of them, and he forced himself to keep moving, keep moving, keep moving, because if he stopped he would go in and he would not come out and Mari would not come out and it would be over before it had been corrected.</p>
+
+  <p><em>Keep moving.</em></p>
+
+  <p><em>Find her first. Get her out. Then come back.</em></p>
+
+  <p>The third building had two guards at the entrance — a reinforced door, electronic lock, the kind of security you put on something you're deeply invested in not losing. He took the guards with a speed and efficiency that was not pleasure, nothing so human as pleasure, but a kind of dark competence that felt appropriate to the situation. He pulled the lock in twelve seconds. The door opened into white light, clinical and blinding after the darkness of the trees.</p>
+
+  <p>A corridor. Doors. The smell of antiseptic and something underneath it that was worse. He moved down the corridor reading door numbers and at the fifth one on the left he stopped because through the gap at the bottom he could see a specific pattern of light that meant nothing to anyone else and everything to him: the shadow of someone sitting on a bed, the particular quality of stillness of someone who has been very still for a very long time.</p>
+
+  <p>He opened the door.</p>
+
+  <p>The room was white and small and cold and the light was the kind of fluorescent that makes everything look used up and defeated. There was a metal bed and a chain bolted to the wall and a girl sitting on the edge of the mattress with her hands in her lap and her head down, and he needed three seconds to process what he was seeing because what he was seeing was so far from what he had built in his memory of her that the gap between the two images felt like a physical wound.</p>
+
+  <p>Mari.</p>
+
+  <p>She looked up at the sound of the door.</p>
+
+  <p>Her face — her beautiful, laughing, unstoppable face — was changed. Bruised along the jaw and around one eye. Her lip was split and healed and split again. She was thinner in a way that was not health, and she held herself with the careful stillness of someone managing constant pain. The orange scarf was gone. She wore plain grey like every colour had been taken from her along with everything else.</p>
+
+  <p>But her eyes.</p>
+
+  <p>Her eyes found his across the room and something in them — something that all of it had not managed to reach, something that had been down in the very centre of her, too deep to touch — woke up.</p>
+
+  <p>"Dom," she said. Her voice was not what he remembered. It was cracked and thin, worn from a direction he couldn't think about directly. "You came." A pause. The faintest thing, barely visible, at the corner of her mouth. "My brilliant hacker. I knew you would."</p>
+
+  <p>He crossed the room in three steps and went to his knees beside her and took her hands in both of his and could not speak for a full ten seconds. The chain was thin but strong, bolted at the wrist.</p>
+
+  <p>"I'm here," he said when he could. His voice was completely steady. This required everything he had. "I'm right here. I've got you."</p>
+
+  <p>He cut the chain. Her wrists were raw underneath it and he wrapped them in the hem of his sleeve while she watched him with those eyes that had survived everything they'd thrown at them. He pulled her very carefully against his chest — carefully, because every instinct screamed to hold her so hard the whole thing reversed itself and none of it had happened, but she was fragile in ways he couldn't see and he would not hurt her even in the act of saving her.</p>
+
+  <p>She rested her forehead against his shoulder. He felt her whole body shudder once — just once, a single, enormous tremor, like a building releasing pressure — and then go still.</p>
+
+  <p>"I held onto everything," she whispered. "Every memory. The Ferris wheel. The vending machine. The balcony. Every single thing. I played them like — like I was running a program. Like I could stay inside them."</p>
+
+  <p>"You can tell me everything," he said into her hair. "We have time. We have the whole rest of our lives."</p>
+
+  <p>She pulled back slightly to look at his face. Her eyes were searching his — reading him the way she always had, seeing past the composure to whatever was actually happening underneath it. She reached up with one chained-raw hand and touched his jaw.</p>
+
+  <p>"Even if they broke my body," she said quietly, with the peculiar calm of someone who has already had every fear fully confirmed and arrived out the other side of it, "they could not break the love we made. You know that. Nothing they did could reach that. Promise me you know that."</p>
+
+  <p>"I know that."</p>
+
+  <p>"Promise me something else." Her voice was very quiet now. "Whatever happens — live for both of us. Don't let them win by making you hollow. Don't let them take that from me too."</p>
+
+  <div class="pull-quote">
+    "He made her the promise. He did not know yet what it would cost him to keep it."
+  </div>
+
+  <p>Then the door exploded open.</p>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Five</span>
+  <span class="chapter-title">The Death That Broke Everything</span>
+  <div class="chapter-epigraph">
+    "There is a moment in every tragedy where the playwright is merciless —<br>
+    where hope is allowed to flicker, just for a second, before being extinguished.<br>
+    This is that moment."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">Five men came through the door. Six. More behind them. Dom moved on instinct — pure trained instinct, the body remembering what the mind was too overwhelmed to direct — and he was already moving before the door had finished swinging. He dropped the first two with a speed that surprised them, used the third as cover for the fourth, got the fifth with an elbow strike that he felt all the way up to his shoulder. For a few seconds the small room was chaos and noise and the specific violent mathematics of a man who has nothing left to lose.</p>
+
+  <p>Then a gun pressed against the back of his skull with a click that was the loudest sound in the world, and everything stopped.</p>
+
+  <p>He went still. In his peripheral vision he could see Mari pressed against the wall with her arms around herself, watching him with eyes that had gone very wide and very frightened, the hope draining out of them like colour from a wound.</p>
+
+  <p>The men pinned him. He let them, because they had a gun on her now too, and there was no version of fighting in which that equation ended well.</p>
+
+  <p>The room rearranged itself around the new situation. Guards against the walls. The gun at his neck held by a man with the professional calm of someone for whom this was administrative. And in the doorway, hands clasped loosely in front of him, the same way a man stands at a garden party or a business lunch, Hades walked in.</p>
+
+  <p>He was tall — that was the first thing. Tall and broad, wearing a pale suit that was too expensive for this room, too relaxed for this situation. He had the face of someone who had been handsome once and knew it, and who had spent subsequent decades developing an expression that made the handsomeness irrelevant. His eyes were a pale blue that should have been pleasant and were instead like looking into a place where something was missing — a space where an essential human component should have been and simply was not.</p>
+
+  <p>He surveyed the room. He surveyed Dom. He looked, finally, at Mari, with the studied indifference of a man looking at a possession he had temporarily misplaced and has now had returned.</p>
+
+  <p>"So this is the hacker," he said. His voice was mild, conversational, the voice of someone discussing weather. "I must say, the determination is impressive. You people usually stop at the surveillance stage." He let his pale gaze rest on Dom for a moment. "She's clearly more than a hobby."</p>
+
+  <p>Dom said nothing. His jaw was locked. He was calculating — exit routes, guard positions, the angle of the gun at his neck, the distance between himself and Mari. There was no calculation available that ended in both of them walking out. He knew this with the cold certainty of a man who understands systems.</p>
+
+  <p>He kept calculating anyway. Because she was twelve feet away and looking at him and he would not stop calculating while she was twelve feet away and looking at him.</p>
+
+  <p>Hades glanced at Mari again, almost idly. "Such passion," he said. "It's quaint. The kind of thing that gets people killed." He paused. "The kind of thing that gets other people killed."</p>
+
+  <p>He gave the smallest nod. So small that Dom almost didn't see it. The kind of nod you give to confirm an order that was already understood.</p>
+
+  <p>The guard on Mari's right raised his pistol.</p>
+
+  <p>Everything in Dom's body screamed at once. He lunged forward against the men holding him and the gun hit the back of his neck and the men pulled him back and the whole thing lasted perhaps two seconds and he could not — he was not —</p>
+
+  <p>Mari looked at him across the white room.</p>
+
+  <p>She looked at him with her brown eyes — those brown eyes that had first really looked at him across a café table over a spilled coffee, that had looked at him from a Ferris wheel at midnight, that had looked at him in the dark of the balcony while the city hummed below them, that had held his gaze through everything they had built and everything they had been — and in those eyes, even now, even here, even in this room that was the worst room in the world, there was something inextinguishable.</p>
+
+  <p>"I love you, Dom," she said. Her voice was clear. Steady. "Don't let them win."</p>
+
+  <p>The gunshot was a physical thing. It hit him in the chest, in the sternum, in some place that had no name in anatomy because it was not a physical location but an essential one. The sound of it and what followed the sound — the sight of it, the terrible cinematic finality of it — pressed into him like a brand.</p>
+
+  <p>She fell.</p>
+
+  <p>The light in her eyes — which he had watched change through fourteen months of ordinary evenings and extraordinary midnights, which he had memorised by accident the way you memorise the things you assume will always be there — went out.</p>
+
+  <p>Dom's scream was not a human sound. It was the sound a person makes when the specific, irreplaceable architecture of their interior world collapses all at once — when everything they have built themselves around ceases to exist in the same instant. It was the sound of something fundamental breaking. It came up from somewhere below the voice, below the body, from whatever is at the very centre of a person, and it tore out of him in a single terrible, rising arc.</p>
+
+  <p>He fought against the men with a savagery that was no longer trained or calculated — pure animal grief wearing a human body, fighting not to escape but simply because stillness was impossible, because his body could not accept the instruction to stop. He thrashed and kicked and pulled and they held him, and across the room she lay still with her eyes open, and the white light of the room was merciless in its neutrality.</p>
+
+  <p>Hades watched all of this with the mild interested expression of a man at a theatre who has seen this particular play before.</p>
+
+  <p>"Remember this moment," he said quietly, when Dom's struggle had finally exhausted itself into shaking stillness. He walked to the door, unhurried. "This is what happens when someone touches what belongs to me." A pause at the threshold, without turning back. "I'd say it was personal. But it really isn't. That's the terrible thing about power, boy. It doesn't need to be personal. It just needs to be absolute."</p>
+
+  <p>He left.</p>
+
+  <p>The door closed.</p>
+
+  <p>Dom was on his knees in the white room, alone with his broken hands and the remnants of everything that had mattered, and the city of the dead lay all around him and he could not breathe, he could not think, he could not do anything at all but press his forehead to the floor and make that sound again, that terrible animal sound, into the cold concrete.</p>
+
+  <div class="pull-quote">
+    "They left him there with her. That was its own kind of cruelty — the cruelty of men who have long since run out of things to fear. They left him in the room with the evidence of what they had done, certain that it would destroy him.<br>
+    They were not entirely wrong. But they had made a mathematician's error: they had destroyed the part of him that was capable of mercy."
+  </div>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- PART THREE -->
+<div class="part-break">
+  <span class="part-number">Part Three</span>
+  <span class="part-title">The Burning</span>
+  <span class="part-subtitle">Not all fires destroy. Some fires are the only way to see clearly in the dark.</span>
+  <div class="part-rule"></div>
+</div>
+
+<!-- CHAPTER 6 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Six</span>
+  <span class="chapter-title">The Oath Carved in Blood</span>
+  <div class="chapter-epigraph">
+    "There are two kinds of men who survive the unsurvivable.<br>
+    The ones who survive it by forgetting.<br>
+    And the ones who survive it by becoming it."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">He woke up in a hut on the mainland — he didn't know how he'd gotten there. Two days had passed. The Silido men who had extracted him (though he didn't know that was what they were; they appeared to him only as hands and voices in darkness, moving him, keeping him alive with the clinical efficiency of people who have moved injured bodies before) had left him water and food and the particular mercy of solitude.</p>
+
+  <p>His shoulder was torn. His ribs on the left side protested every breath. His hands were the worst — split at the knuckles, bruised purple-black, one finger broken and reset badly in whatever unconscious period he couldn't account for. He lay on a thin mattress on a wooden floor and looked at the ceiling and breathed.</p>
+
+  <p>This took a very long time. Just breathing. Just being a body that was still, somehow, continuing its mechanical operation without having been asked to, without there being any particular reason it should.</p>
+
+  <p>She was gone.</p>
+
+  <p>He let himself think it directly, for the first time, rather than skimming around it. She was gone. Mariela Delgado — who had bumped his table and stolen his breath and taught him, at considerable personal cost to his emotional defences, that warmth was not a vulnerability but a form of strength — was gone. The specific, unrepeatable combination of energy and laughter and profound, uncompromising love that had been her was simply no longer present in the world.</p>
+
+  <p>The world was therefore smaller. And colder. And wrong.</p>
+
+  <p>He sat with this for as long as it took. He did not fight the grief or redirect it or convert it — not yet. He let it move through him like weather through an empty building, battering at walls, taking what it wanted. He cried until he had no more tears and then continued without them, which was worse. He lay in the dark and replayed every memory he had of her — not the way he had done before, in desperation, in bargaining, clutching at the recordings of her voice. He replayed them now with the specific, excruciating attention of someone who knows they are making an archive. Committing every detail to somewhere safe. The angle of her laugh. The way she pronounced his name with slightly too much emphasis on the second letter. The warmth of her in the dark.</p>
+
+  <p>He kept every single thing. He locked it away in the most protected place he had — the place they could not reach, the place that existed entirely inside him.</p>
+
+  <p>Then he picked up a shard of mirror from the floor — the hut had little in it but what little there was had not survived whatever had happened here before — and he rolled back his sleeve.</p>
+
+  <p>He carved carefully. It took a long time. He didn't stop.</p>
+
+  <span class="carved">MARI — I WILL BURN THEM ALL</span>
+
+  <p>The blood ran down his forearm and dripped from his elbow onto the wooden floor and he watched it with a complete, cold steadiness that was not numbness but its opposite — a heightened, crystalline clarity that he had never experienced before and would never entirely lose.</p>
+
+  <p>This was not the grief talking. Grief was what had happened in the white room, what had happened in the forty-eight unconscious hours of aftermath. This — this quiet, bleeding resolution — was something older and more certain. This was what was left after grief had burned through and taken everything soft with it.</p>
+
+  <p>He bandaged his arm. He stood up. He found his phone — miraculously intact, tucked in an inside pocket — and he looked at it for a moment, at the last text in her conversation thread:</p>
+
+  <div class="text-message">
+    On my way home, love you more than Wi-Fi and chocolate combined ❤️<br>
+    Don't forget to eat something real, hacker boy.
+  </div>
+
+  <p>He didn't delete it. He would never delete it. He locked it and put the phone in his pocket and walked out of the hut into the thin grey light of a morning that didn't care about any of this, and started working out how to get home.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>Back in the city, he hacked like a man possessed — and possession was precisely the right word for it. He was possessed by the thing he had become. He barely ate. He slept in two and three hour blocks, falling off the chair into unconsciousness when his body refused to continue, waking with his face on the keyboard and the cursor blinking in the middle of a string of commands. He had passed beyond tiredness into some further country that had no name but that felt, strangely, like clarity.</p>
+
+  <p>He pulled data from places it was never meant to be pulled from. He broke into the private communication channels of six senior government ministers and spent two weeks reading their messages — their casual, mundane, laughing messages about the things they did on the island, about other islands, about the network of people who knew and the network of people who were owned. He found names. He found dates. He found photographs, sometimes, that he looked at for exactly as long as it took to understand what he was seeing and then closed, because to look longer than necessary was to let it into a place he needed to keep clean.</p>
+
+  <p>He built a file. Encrypted, backed up to seven locations, the documentation of a system that had been allowed to exist because everyone who knew about it had decided, at some point, that survival required silence.</p>
+
+  <p>He was ending the era of silence.</p>
+
+  <div class="pull-quote">
+    "Every night, before he slept, he looked at the scar on his forearm. It was healing — the body's relentless, indifferent insistence on continuing — but the words remained. Not a reminder. A compass. Every decision he made, he made in its direction."
+  </div>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- CHAPTER 7 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Seven</span>
+  <span class="chapter-title">The Matrix Cracks Open</span>
+  <div class="chapter-epigraph">
+    "The most frightening moment is not when you discover the monster.<br>
+    It is when you discover that the monster has a desk in a government building<br>
+    and a driver who waits for him outside."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">Six weeks after the island, Dom found the full architecture of it.</p>
+
+  <p>He had been following a financial thread — shell companies to offshore accounts to payment systems registered in countries that don't ask questions — and it had led him somewhere he hadn't expected. Not further into the shadows. Into the light. Into the absolute, sun-drenched, publicly-visible centre of the country's official power structure.</p>
+
+  <p>Hades — whose real name he now had, along with a biography that read like a case study in how completely a country can rot when the right people decide to let it — was not a shadow figure. He was not in the dark. He was, in every official sense, the state. He sat at the intersection of money, government, and military like a spider at the centre of a web that stretched to every corner of the country's legitimate institutions. The ministers Dom had been documenting were not peripheral players. They were the apparatus. The generals who approved the island's private security contracts were the same generals who signed off on national defence budgets. The judges whose rulings had inexplicably cleared every legal challenge to Eden Holdings were the same judges who sat on constitutional courts.</p>
+
+  <p>It wasn't a shadow government hiding behind the real one. The shadow government <em>was</em> the real one. Had been, Dom realised with a sickness that was almost physical, for longer than he had been alive.</p>
+
+  <div class="flashback">
+    <p>He thought of something Mari had said once — one of those balcony conversations that had wound from casual into something surprisingly serious, the way conversations do when it's dark and you trust each other. They had been talking about the news, about some scandal that had ended predictably in no consequences for anyone involved, and she had said: <em>"The thing that really frightens me isn't the bad people. It's the infrastructure that makes being bad so easy. It's the fact that someone had to design that. Someone sat down and thought: how do we make it so that this can never be stopped? And they built it. That's what I'm afraid of."</em></p>
+    <p>He had said something dismissive and rational about institutional incentives and she had looked at him with a slight, sad smile and said: <em>"You see it all so clearly and you still somehow manage not to feel it. How do you do that?"</em></p>
+    <p>He felt it now. He felt every square millimetre of it.</p>
+  </div>
+
+  <p>He spent three weeks building the full picture. By the end of it he had a document — a living, breathing, cross-referenced, multiply-sourced record of everything — that was simultaneously the most comprehensive piece of investigative work he had ever done and the most damning thing he had ever seen. It sat on his encrypted drive and pulsed with the weight of what it contained.</p>
+
+  <p>He could release it. He thought about releasing it. He thought about what that would mean — the stories, the trials, the public outcry, the grinding machinery of official accountability that Hades had specifically designed to be unworkable. He thought about how long it would take. He thought about the girl at Dock 17 who had been one of many, about the muffled sounds from the other building on the island, about the file of names he had found of people who had tried official channels before and whose careers had ended, or whose lives had ended, with a suspicious efficiency.</p>
+
+  <p>Official channels required trusting a system that had been systematically corrupted to protect itself from exactly this kind of challenge.</p>
+
+  <p>He closed the laptop. He looked at the scar on his forearm for a long time. He thought of what she had said: <em>the system only survives when good men stay silent.</em></p>
+
+  <p>He was not going to be silent.</p>
+
+  <p>But he was also not going to be official.</p>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- CHAPTER 8 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Eight</span>
+  <span class="chapter-title">The Fall and the Rise</span>
+  <div class="chapter-epigraph">
+    "Every story of revolution has this moment — the one before the tide turns.<br>
+    The moment of maximum loss, just before the cavalry.<br>
+    The moment that makes everything that follows feel earned."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">He planned the final strike with the specificity of a man who has made peace with the possibility of not surviving it. He mapped every camera in the capital's government quarter. Every guard rotation at the bunker — the private, unofficial bunker beneath the justice ministry that appeared on no public record and which he had found by following the power bills of a building that used twice the electricity its listed square footage could account for. He identified the night — a quarterly gathering at which Hades assembled his full inner circle under the pretext of a cultural foundation dinner — and he set the date two weeks out and spent those two weeks in a state of preternatural calm that was either enlightenment or the particular peace of someone who has already accepted a specific outcome.</p>
+
+  <p>He left digital packages with three journalists in three different countries — encrypted, time-locked, set to release automatically in seventy-two hours unless he entered a specific override code. Insurance. Not for himself. For the record. Because if he died in that bunker, he wanted what he knew to outlive him.</p>
+
+  <p>He wrote nothing to his grandfather. He was not yet ready for that conversation.</p>
+
+  <p>On the night itself, he moved through the city like a man who belongs to it — nobody, again, just another figure in the dark, the ghost the machine had always made him. He went in through an infrastructure access point that he had identified via the building management system two weeks earlier. Past the maintenance corridors. Past two guards who were making coffee and discussing football and never heard him. Down to the lower level, where the ventilation system carried the sounds of voices and the clink of glasses, where powerful men celebrated themselves in the language of people who have never had to account for anything.</p>
+
+  <p>He went through the door at the far end of the lower corridor, and for approximately ninety seconds he was everything that rage and training and the name carved into his arm had built him into, and it was terrible and efficient and completely inadequate.</p>
+
+  <p>There were too many of them.</p>
+
+  <p>He took down twelve before they surrounded him completely. Twelve, and his body was already running on reserves that had been running for two months, and the shoulder wound from the island that had never fully healed was bleeding again under the strain, and a bullet caught his left leg mid-drop and another opened up his upper arm and he went down.</p>
+
+  <p>He went down fighting. He went down with both hands still trying to find something to reach. But he went down.</p>
+
+  <p>The marble floor was cold against his cheek. His vision was doing the thing it does when blood loss begins — narrowing, darkening at the edges, the centre of the frame becoming very vivid and strange. He could hear voices around him, the voices of men who had won this particular round and were enjoying it, and underneath that he could hear — or imagined he could hear — a sound he could not source. A heartbeat. Or a clock. Or both.</p>
+
+  <p>Hades crouched down in front of him. He was not smiling this time. Something harder — closer to respect, or its cold functional equivalent. He studied Dom's face the way you study a map of a place you've spent significant resources trying to navigate.</p>
+
+  <p>"You are extraordinary," he said. And he appeared to mean it, in the way that a man can mean a thing that gives him no moral pause whatsoever. "Genuinely. What you've done — the access you've gained, the documentation you've built, the sheer bloody-mindedness of it." He shook his head slightly. "I almost wish we'd found you earlier. You'd have been very useful."</p>
+
+  <p>He stood up.</p>
+
+  <p>"But alone?" he said. "Alone, extraordinary means nothing. Alone is just a very talented way of dying."</p>
+
+  <p>He raised his pistol. Not dramatically. Just a practical gesture, the same way you make a practical gesture to end any problem you've been managing.</p>
+
+  <p>"Say hello to your girl for me," he said.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>The ceiling lights exploded.</p>
+
+  <p>Not failed — exploded, simultaneously, sending the entire room into a roaring darkness punctuated by emergency red, the specific red of systems declaring a state that has never happened before. And in that red darkness, from every point of entry simultaneously, the ropes dropped.</p>
+
+  <p>He heard them before he could see them — a sound he had no reference for, a sound like controlled violence arriving in organised formation, like something that had been waiting very patiently and had decided that the patience was done. Black ropes from ceiling access points. Windows shattering inward. The maintenance doors at both ends of the room coming off their hinges as if they were nothing at all.</p>
+
+  <p>Silido arrived like a verdict.</p>
+
+  <p>There were perhaps forty of them. Dom could not count — his vision was still compromised, still narrowing at the edges, and the room was chaos of a particularly organised kind. But he could see them moving — dark suits, faces that had the quality of controlled purpose, moving with the kind of speed that does not come from adrenaline but from absolute clarity about what they are there to do.</p>
+
+  <p>The government men — ministers in their expensive clothes, generals with their decorations, the financial architects of a system built on silence — fell apart instantly. Not all of them. Some fought. But they had been protected for so long by their institutional invulnerability that they had forgotten what unprotected felt like, and the reminder was extreme.</p>
+
+  <p>Dom pushed himself up from the floor. His left leg would not take weight. He found the wall behind him and used it, pressing himself upright, watching the room resolve itself into something he hadn't dared believe was possible when he had walked through that door alone twenty minutes earlier.</p>
+
+  <p>Hades was at the far end of the room, trying to reach a secondary exit, and finding it blocked by two men who were not interested in his reasons. They brought him forward. He was still trying to project authority — the tilt of the chin, the calibrated calm — but his eyes were showing something Dom had not seen in them before, something that had been absent from them on the island, absent when he gave the nod that ended the world.</p>
+
+  <p>Fear.</p>
+
+  <p>He was afraid. He was finally, actually, in the only real way, afraid.</p>
+
+  <p>They threw him down in front of Dom. Not gently.</p>
+
+  <p>And through the red-lit chaos of the room, across the bodies of guards and the scattered remnants of the power structure he had just watched dismantled in real time, Dom looked up to find the silver-haired man in the black suit standing in the centre of it all — untouched, unhurried, as calm as a man at his own table — and understanding arrived with the force of something he should have felt long before this moment.</p>
+
+  <p>His grandfather looked at him across the ruins of the government's secret empire. His face was still. His eyes, when they found Dom's, were the eyes of a man who has waited a very long time for a conversation.</p>
+
+  <p>"Family doesn't ask for thanks," Zir said. His voice was quiet enough that Dom had to strain to hear it over the sounds of the room. "It only protects." A pause. "Even when the boy never asked for it."</p>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- CHAPTER 9 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Nine</span>
+  <span class="chapter-title">The Last Reckoning</span>
+  <div class="chapter-epigraph">
+    "Justice is a word that belongs to lawyers and philosophers.<br>
+    Reckoning is something else — something older, something that doesn't need a courtroom<br>
+    because the verdict was already written in the wound."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">Dom pulled himself away from the wall and stood on his good leg and his bad one and faced what was on the floor in front of him.</p>
+
+  <p>Hades looked up. The fear was still there — Dom could see it, clearly, without satisfaction. He had imagined this moment many times in the months since the island, had imagined it with varying degrees of rage and theatre, and the thing he had not predicted was how quiet it would feel. How still. Not numb — not the absence of feeling, but the presence of a feeling so large and final that it filled every available space and left no room for anything additional.</p>
+
+  <p>Hades read Dom's face and, to his credit — to whatever thin credit remained to a man like this — he did not beg. He held himself with the remnant of his composure and looked up at the man standing over him with the gun in his hand, and he decided, in those final seconds, to be what he had always been.</p>
+
+  <p>"You think this changes it," he said. His voice was rougher than before, but still controlled. "You think killing me ends something. It doesn't. Power doesn't die — it transfers. You've removed one man from one seat and the seat will be occupied by morning." He looked at Dom steadily. "You can't hack the nature of things, boy. The strong take. The weak endure. This has been true since before either of us was born, and it will be true after both of us are gone. I am not the disease. I am a symptom. Kill the symptom and the disease will only find another form."</p>
+
+  <p>There was a long silence. In it, Dom heard — or felt, or remembered — her voice. Not specific words. Just the warmth of it. The quality of absolute conviction it carried when she talked about the things that mattered to her.</p>
+
+  <p><em>The system only survives when good men stay silent.</em></p>
+
+  <p>He looked down at Hades and his voice came out quiet and level, from somewhere very deep.</p>
+
+  <p>"You're wrong," he said. "The system doesn't survive on power. It survives on the belief that nothing can be done. On people deciding that fighting it costs more than enduring it." He paused. "I'm not fighting it because I think I can fix human nature. I'm fighting it because the alternative is to become the silence." He raised the gun. "And I'm not silent anymore."</p>
+
+  <p>He pulled the trigger.</p>
+
+  <p>The sound of it was enormous in the suddenly-quiet room.</p>
+
+  <p>Then Dom turned — on his bad leg, with blood from his arm dripping to the marble floor — and looked at the surviving members of the council, the ministers and generals and financial architects of the system, who had been arrayed against the walls by Silido men, all of their authority stripped from them along with their weapons and their certainty. They looked, in the red emergency light, like what they were — frightened men in expensive clothes who had mistaken the infrastructure of their protection for something inherent to themselves.</p>
+
+  <p>Dom looked at them for a long time without speaking.</p>
+
+  <p>One of the ministers — he had met this man, Dom realized, on paper first, had tracked his private messages for weeks, had read the things this man said when he believed he was unobserved — lifted his chin and said, with the instinctive authority of a man who had never once in his life been accountable: "You have no authority here. Whatever you think you're doing—"</p>
+
+  <p>"I know exactly what I'm doing," Dom said.</p>
+
+  <p>He was very calm. He had never felt so calm in his life.</p>
+
+  <p>He had promised her he would not let them win. He had promised her he would live for both of them. He had understood those two promises, until this moment, as potentially contradictory — as if living required softness, required pulling back from the edge, required the kind of mercy these men had never once extended to anyone whose pain was useful to them.</p>
+
+  <p>He understood now that mercy is not softness. Mercy is a choice. It requires the option of not-mercy to mean anything at all. And there are situations — specific, documented, evidenced situations — in which the presence of mercy is an act of violence against all those who are not present to receive it.</p>
+
+  <p>He was the virus that ends it.</p>
+
+  <p>He went through the room methodically, and when it was done, he stood alone in the centre of it with the red emergency lights pulsing around him and his own blood making its quiet, patient map on the marble below, and he breathed.</p>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- CHAPTER 10 -->
+<div class="chapter">
+  <span class="chapter-number">Chapter Ten</span>
+  <span class="chapter-title">The Grave at the Edge of the World</span>
+  <div class="chapter-epigraph">
+    "We bury the dead so that we can carry them.<br>
+    The grave is not the end of the conversation — it is where the conversation finally becomes honest."
+  </div>
+  <div class="chapter-rule"></div>
+
+  <p class="first-paragraph">Two weeks later.</p>
+
+  <p>The hill was the kind that exists on the edge of cities — not quite inside, not quite outside, holding itself at a slight remove from the noise and the concrete, old enough that its trees had seen everything and kept all of it. The cemetery was small and well-kept and unremarkable. The kind of place that people visit and then forget the look of, which is perhaps the most peaceful thing a place can be.</p>
+
+  <p>Dom stood at the grave and held white roses — her favourite, a fact she had mentioned exactly once, in passing, with the particular offhandedness of someone who considers their preferences too small to warrant emphasis — and looked at the stone for a long time before he spoke.</p>
+
+  <p>His leg was better. Not right, not yet, but functional. His arm was healed to the point where he only remembered it when the weather changed. The scar on his forearm was fully healed now — the letters visible, permanent, pink against his skin. He did not cover it.</p>
+
+  <p>The sun was setting. The colours of it were the ones she had loved — amber and rose and the particular deep orange of late autumn light, the colour of her scarf, the colour that had been the first thing about her he had memorised without meaning to.</p>
+
+  <p>He knelt. He placed the roses against the stone, one at a time, with care.</p>
+
+  <p>"Hey, baby," he said. The words came out easily — easier than he'd expected. He had spent the entire drive here rehearsing what he would say and now found that he didn't need the rehearsal. She had always said he was better when he stopped preparing and just spoke. She had always been right about the things he was wrong about. "I did it. I need you to know I did it."</p>
+
+  <p>He paused. The wind moved through the trees around him with a sound like breathing.</p>
+
+  <p>"Every single one of them. The island is gone. The documentation is public — it went out to journalists in four countries, it can't be suppressed. The people who survived the bunker have been taken somewhere that Silido looks after, which I'm going to need some time to process, but — it's done. The machine they built is broken. Other machines will be built, because you were right about the infrastructure of bad things, you were always right about that — but this particular one is over. The specific people responsible for what happened to you are gone."</p>
+
+  <div class="flashback">
+    <p>He remembered — unbidden, complete, vivid as the moment it happened — the first thing she had ever said to him that pierced something essential. Not the café line about hacking his drink. Not the Ferris wheel. Something earlier. The second time they had met at Caruso's, the afternoon that was the second date neither of them named. She had been looking at him across the table with the focused, slightly tilted attention she gave to things she was trying to understand, and she had said, out of nowhere: <em>"Do you know what I think about people who live in systems? I think they forget that systems are made of choices. Every rule that exists, every structure, every wall — someone chose it. And someone can un-choose it."</em></p>
+    <p>He had argued with her. He had said something about institutional inertia and the limits of individual agency. She had listened patiently and then said: <em>"You're describing why it's hard. I'm describing why it's possible. Those are different conversations."</em></p>
+    <p>He had thought about that conversation approximately four hundred times since she disappeared. He thought about it now, kneeling at her grave in the amber light.</p>
+    <p>She had been right about that too.</p>
+  </div>
+
+  <p>"I miss you," he said. "I'll miss you for the rest of my life. That's not — that's not a burden, I want you to know that. Missing you is one of the only things that still feels true. Everything else has changed and is changing and I don't know what comes next, but missing you feels like holding something real. So I'm keeping it."</p>
+
+  <p>His voice cracked on the last sentence. He let it. There was no one here to be strong for.</p>
+
+  <p>"I'm going to lead Silido. My grandfather has asked and I've — I've thought about it and it is, honestly, the most complicated situation I have ever been in, and you would have had approximately eleven opinions about it, all of them correct, and I would have argued with all of them and eventually, probably, done exactly what you advised." He almost smiled. "I'm going to try to do what you would have advised. I'm going to try to lead it in the direction you would have pointed."</p>
+
+  <p>He was quiet for a moment. The last of the sun was going from the sky, the orange giving way to the deep blue of the coming night, the first stars arriving with their indifferent brightness.</p>
+
+  <p>"I hope you're somewhere dancing," he said. "Loudly. With terrible music choices and no self-consciousness whatsoever. I hope wherever you are, there are strawberry candies and good books and someone who listens the way you always said I listened — like they mean it."</p>
+
+  <p>He placed his hand flat against the stone for a moment. The way you place your hand against something you want to remember the temperature of.</p>
+
+  <p>"I love you," he said. "That doesn't change. Not by any amount of time, not by anything that happens next. I love you. I will always love you. And every good thing I manage to do from here — every instance of the system being changed rather than merely moved through — that belongs to you. You started it. You, in a café, spilling my coffee. You started all of it."</p>
+
+  <p>He stood up. The hill was very quiet around him. The city below was beginning its evening lights — all those squares and lines and bright arterial roads, the circuit board he had shown her from the Ferris wheel, the code she had said she wanted to live inside.</p>
+
+  <p>He stood there until the stars were fully out. He didn't need to hurry. There was nowhere else he needed to be right now.</p>
+
+  <div class="section-break">* * *</div>
+
+  <p>Zir was waiting at the cemetery gate. Beside him stood the twelve men and two women of the inner circle, all of them in black, all of them silent. As Dom walked through the gate, Zir stepped forward and they stood facing each other in the dark — the old man and the young one, the silver-haired architect and the hacker who had cracked his way to the truth through sheer will and grief and love.</p>
+
+  <p>Zir held his gaze for a long moment. Then he bowed his head. A small movement, simple and complete. Behind him, without instruction, the inner circle did the same.</p>
+
+  <p>Dom looked at his grandfather. At the face that was, he realised, the oldest mirror he had — the face that showed him, in its lines and its stillness and its complicated love, where he had come from. He had spent his adult life looking away from that. He would not look away anymore.</p>
+
+  <p>"I'll lead," Dom said. His voice was quiet and clear in the night air. "I'll lead. But you should know — the way I lead won't look like the way you led. I'm going to do this differently. I'm going to try to use what we have to change what shouldn't exist, not to protect what always has." He paused. "She would have said that was the only thing worth doing with any kind of power."</p>
+
+  <p>Zir looked at him for a long moment. And something in the old man's face — something that had been very controlled, very contained, for a very long time — moved.</p>
+
+  <p>"Then lead," he said simply.</p>
+
+  <div class="chapter-end-rule"></div>
+</div>
+
+<!-- EPILOGUE -->
+<div class="epilogue">
+  <div class="epilogue-title">Epilogue: The Code She Wrote in Him</div>
+
+  <p>There is a café on a narrow street in the old part of the city — not Caruso's anymore, Caruso's closed a year ago and something sleeker and louder replaced it, as always happens. But a street away, there is a small place with old wood tables and the smell of cardamom, and in the corner table with the sightline to both exits, a young man sometimes sits with a laptop and a coffee that he actually drinks while it's hot.</p>
+
+  <p>He has a scar on his forearm that he doesn't explain. He has the eyes of someone who has seen things that required adjusting to, and adjusted. He has a quality of attention — when he talks to someone, when he looks at someone — that people remark on afterward, without quite being able to describe what it was. Like being genuinely seen. Like being worth the effort of seeing.</p>
+
+  <p>Some nights he goes to the hill above the city. He brings white roses when the season has them, and other flowers when it doesn't, and he talks for a while in the dark. He tells her what has changed. What he's fighting. What the work is. He tells her when he gets it wrong, which he does, regularly, because the work is hard and he is still, underneath everything, the same man who needed to be taught that love isn't a program you can back up against loss.</p>
+
+  <p>He tells her when he gets it right, too. He tells her about the island — shut down completely, six months after the bunker, every structure burned and its occupants in the places people like that belong. He tells her about the other places, too, because there were other places, and he is working through them with the same methodical fury he has given everything since the night of the café and the spilled coffee.</p>
+
+  <p>He tells her about the people he's found — the ones who need the kind of protection that official channels won't provide, the ones the system has decided are not worth protecting. He tells her about what Silido is becoming under his direction: not cleaner, exactly — he has no illusions about what he is and what the organisation is, about the moral arithmetic of the world he operates in — but pointed differently. Aimed at something she would have recognised as worth aiming at.</p>
+
+  <p>The stars come out while he talks. He stays until he has said everything he came to say. Then he stands, and touches the stone, and says the same thing he always says at the end:</p>
+
+  <p><em>I love you. I'm not silent anymore.</em></p>
+
+  <p>He walks back down the hill through the amber streetlight, toward the city that is always, always, always changing — its circuits being rewired by invisible hands, its systems being quietly, persistently, unreasonably challenged by people who were told it couldn't be done and decided to try anyway.</p>
+
+  <p>The cold hacker and the warm girl she made of him walk together through the dark.</p>
+
+  <p>The world has not been fixed. The world will never be fixed, not completely, not finally — it is not the kind of problem that admits a permanent solution. But it has been changed, in specific and documented ways, and it will be changed again, and the people who depended on it staying the same have learned, at considerable cost, that dependence on a thing's permanence is not the same as that thing being permanent.</p>
+
+  <div class="pull-quote" style="margin-top: 60px;">
+    "She said: love is the only thing that hackers can't delete.<br><br>
+    She was right. He has tried. Not to delete it — to contain it, to grieve it into something manageable, to convert it into pure function and leave the feeling behind.<br><br>
+    It doesn't work. It never works. It is still there, in the centre of every decision he makes — the warm, inextinguishable, absolutely unreasonable fact of having been loved by Mariela Delgado.<br><br>
+    He has stopped trying to delete it.<br>
+    He has learned, slowly, to call it his greatest advantage."
+  </div>
+
+  <div class="final-line">— The End —</div>
+</div>
+
+</div><!-- end book-body -->
+</body>
+</html>
